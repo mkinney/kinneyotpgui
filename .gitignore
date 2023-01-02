@@ -4,4 +4,4 @@ build/
 venv/
 __pycache__/
 kinneyotpgui.egg-info/
-
+dist/

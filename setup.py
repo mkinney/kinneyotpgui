@@ -14,8 +14,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # This call to setup() does all the work
 setup(
     name="kinneyotpgui",
-    version="0.0.1",
-    description="Graphical user interface for one time passwords",
+    version="0.0.2",
+    description="Graphical user interface for one time pad",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Mike Kinney",

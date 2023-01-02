@@ -1,14 +1,24 @@
-# To setup
+# About
+Graphical user interface for the kinneyotp (one time pad) module.
 
-Run the following commands to setup a python virtual environment, install the requirements int and set the execution flag on the two sample scripts.
+# To install
+
+Run the following commands to setup a python virtual environment, then install the module.
 
 ```
 python3 -m venv venv
 venv/bin/activate
-pip install -r requirements.txt
+pip install kinneyotpgui
 ```
 
-# For a local installation (development):
+After the installation, you should be able to run:
+
 ```
+otp
+```
+
+# For a local installation (for development):
+```
+pip install -r requirements.txt
 pip install -e .
 ```
