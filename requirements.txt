@@ -1,0 +1,6 @@
+kinneyotp
+PySide6
+pytest
+pytest-qt
+pytest-cov
+pylint
