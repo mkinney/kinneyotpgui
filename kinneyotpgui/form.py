@@ -124,23 +124,20 @@ class Form(QDialog):
         key = self.encode_key.text()
         encoded = ""
         msg = ""
-        if len(text) == len(key):
+        if len(text) <= len(key):
             self.otp.key = key
             msg, encoded = self.otp.encode(text)
         else:
-            msg = "The length of the text and key must be the same."
+            msg = "The length of the text must be shorter or the same length as the key."
         self.encoded.setText(encoded)
         self.encode_message.setText(msg)
 
     def do_generate(self):
-        """Generate 'random' text using a seed."""
+        """Generate 'random' text using a seed. Note: This is not truly random."""
         seed_text = self.seed.text()
         random_text = ''
         if seed_text != '':
-            # TODO: provide feedback if they are not using digits
-            seed = int(seed_text)
-            random.seed(seed)
-            # TODO: make the number generated be a value from settings
+            random.seed(seed_text)
             # TODO: format the random_text in blocks of 5 characters
             for i in range(1000):
                 x = random.randrange(len(self.alphabet.text()))
@@ -153,11 +150,11 @@ class Form(QDialog):
         key = self.decode_key.text()
         decoded = ""
         msg = ""
-        if len(text) == len(key):
+        if len(text) <= len(key):
             self.otp.key = key
             msg, decoded = self.otp.decode(text)
         else:
-            msg = "The length of the text and key must be the same."
+            msg = "The length of the text must be shorter or the same length as the key."
         self.decoded.setText(decoded)
         self.decode_message.setText(msg)
 
