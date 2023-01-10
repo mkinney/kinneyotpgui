@@ -1,5 +1,6 @@
 """Form for one time pad"""
 
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QLabel, QFormLayout
 from PySide6.QtWidgets import QLineEdit, QGridLayout, QTabWidget, QWidget
 
@@ -39,6 +40,7 @@ class Form(QDialog):
         self.encode_key = QLineEdit()
         self.encode_key.setFixedWidth(length)
         self.encoded = QLabel()
+        self.encoded.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.encode_message = QLabel()
         layout.addRow('Text:', self.encode_text)
         layout.addRow('Key:', self.encode_key)
@@ -56,6 +58,7 @@ class Form(QDialog):
         self.decode_key = QLineEdit()
         self.decode_key.setFixedWidth(length)
         self.decoded = QLabel()
+        self.decoded.setTextInteractionFlags(Qt.TextSelectableByMouse)
         self.decode_message = QLabel()
         layout.addRow('Text to decode:', self.decode_text)
         layout.addRow('Key:', self.decode_key)
