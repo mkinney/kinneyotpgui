@@ -91,11 +91,30 @@ class Form(QDialog):
         self.alphabet.setFixedWidth(length)
         layout.addRow('Alphabet:', self.alphabet)
 
+        # about page
+        about_page = QWidget(self)
+        layout = QFormLayout()
+        about_page.setLayout(layout)
+        self.about = QLabel()
+        self.about.setWordWrap(True)
+        about_text = "This code is similar to a 'one time pad' (aka Vernam Cipher) which can be used to encode/decode messages.\n"
+        about_text += "\n"
+        about_text += "Tips:\n"
+        about_text += " - The key must be the same length as the uncoded text.\n"
+        about_text += " - The key must be truly random.\n"
+        about_text += " - The key must never be reused, in whole or in part.\n"
+        about_text += " - The key must be kept completely secret by the communicating parties.\n"
+        about_text += " - Consider adding (or using) a character (or phrase) that indicates that the message was sent under duress.\n"
+
+        self.about.setText(about_text)
+        layout.addRow('', self.about)
+
         # add pane to the tab widget
         tab.addTab(encode_page, 'Encode')
         tab.addTab(decode_page, 'Decode')
         tab.addTab(generate_page, 'Generate')
         tab.addTab(settings_page, 'Settings')
+        tab.addTab(about_page, 'About')
 
         main_layout.addWidget(tab, 0, 0, 2, 1)
 
