@@ -1,8 +1,10 @@
 """Form for one time pad"""
 
+import random
+
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QDialog, QLabel, QFormLayout
-from PySide6.QtWidgets import QLineEdit, QGridLayout, QTabWidget, QWidget
+from PySide6.QtWidgets import QLineEdit, QGridLayout, QTabWidget, QWidget, QPlainTextEdit
 
 from kinneyotp import OTP
 
@@ -67,6 +69,19 @@ class Form(QDialog):
         self.decode_text.textChanged.connect(self.do_decode)
         self.decode_key.textChanged.connect(self.do_decode)
 
+        # generate page
+        generate_page = QWidget(self)
+        layout = QFormLayout()
+        generate_page.setLayout(layout)
+        self.seed = QLineEdit()
+        self.random_text = QPlainTextEdit()
+        # TODO: add qt validator for valid seed input
+        # TODO: re-size the random_text box
+        self.seed.setFixedWidth(length)
+        layout.addRow('Seed:', self.seed)
+        layout.addRow('Random:', self.random_text)
+        self.seed.textChanged.connect(self.do_generate)
+
         # settings page
         settings_page = QWidget(self)
         layout = QFormLayout()
@@ -79,6 +94,7 @@ class Form(QDialog):
         # add pane to the tab widget
         tab.addTab(encode_page, 'Encode')
         tab.addTab(decode_page, 'Decode')
+        tab.addTab(generate_page, 'Generate')
         tab.addTab(settings_page, 'Settings')
 
         main_layout.addWidget(tab, 0, 0, 2, 1)
@@ -96,6 +112,21 @@ class Form(QDialog):
             msg = "The length of the text and key must be the same."
         self.encoded.setText(encoded)
         self.encode_message.setText(msg)
+
+    def do_generate(self):
+        """Generate 'random' text using a seed."""
+        seed_text = self.seed.text()
+        random_text = ''
+        if seed_text != '':
+            # TODO: provide feedback if they are not using digits
+            seed = int(seed_text)
+            random.seed(seed)
+            # TODO: make the number generated be a value from settings
+            # TODO: format the random_text in blocks of 5 characters
+            for i in range(1000):
+                x = random.randrange(len(self.alphabet.text()))
+                random_text += self.alphabet.text()[x]
+            self.random_text.setPlainText(random_text)
 
     def do_decode(self):
         """Try to decode using the text and the key."""
