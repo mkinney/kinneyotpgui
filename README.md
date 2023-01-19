@@ -2,11 +2,11 @@
 Graphical user interface for the kinneyotp (one time pad) module.
 
 # Screens
-![encode tab](screens/encode.png "Encode")
-![decode tab](screens/decode.png "Decode")
-![generate tab](screens/generate.png "Generate")
-![settings tab](screens/settings.png "Settings")
-![about tab](screens/settings.png "About")
+![encode tab](https://github.com/mkinney/kinneyoptgui/blob/main/screens/encode.png?raw=true "Encode")
+![decode tab](https://github.com/mkinney/kinneyoptgui/blob/main/screens/decode.png?raw=true "Decode")
+![generate tab](https://github.com/mkinney/kinneyoptgui/blob/main/screens/generate.png?raw=true "Generate")
+![settings tab](https://github.com/mkinney/kinneyoptgui/blob/main/screens/settings.png?raw=true "Settings")
+![about tab](https://github.com/mkinney/kinneyoptgui/blob/main/screens/about.png?raw=true "About")
 
 # To install
 
