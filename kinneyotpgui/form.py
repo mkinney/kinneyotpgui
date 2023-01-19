@@ -3,6 +3,7 @@
 import random
 
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QDialog, QLabel, QFormLayout
 from PySide6.QtWidgets import QLineEdit, QGridLayout, QTabWidget, QWidget, QPlainTextEdit
 
@@ -75,6 +76,15 @@ class Form(QDialog):
         generate_page.setLayout(layout)
         self.seed = QLineEdit()
         self.random_text = QPlainTextEdit()
+        # monospace font
+        mono_font = self.font()
+        if hasattr(QFont, "Monospace"):
+            mono_font.setStyleHint(QFont.Monospace)
+        else:
+            mono_font.setStyleHint(QFont.Courier)
+        mono_font.setFamily("Monaco")
+        mono_font.setPointSize(12)
+        self.random_text.setFont(mono_font)
         # TODO: add qt validator for valid seed input
         # TODO: re-size the random_text box
         self.seed.setFixedWidth(length)
@@ -100,7 +110,7 @@ class Form(QDialog):
         about_text = "This code is similar to a 'one time pad' (aka Vernam Cipher) which can be used to encode/decode messages.\n"
         about_text += "\n"
         about_text += "Tips:\n"
-        about_text += " - The key must be the same length as the uncoded text.\n"
+        about_text += " - The key must be at least the same length as the uncoded text.\n"
         about_text += " - The key must be truly random.\n"
         about_text += " - The key must never be reused, in whole or in part.\n"
         about_text += " - The key must be kept completely secret by the communicating parties.\n"
@@ -122,6 +132,17 @@ class Form(QDialog):
         """Try to encode using text using the key."""
         text = self.encode_text.text()
         key = self.encode_key.text()
+
+        # ensure the values are all uppercase
+        tmp_text = text.upper()
+        if text != tmp_text:
+            self.encode_text.setText(tmp_text)
+            text = tmp_text
+        tmp_key = key.upper()
+        if key != tmp_key:
+            self.encode_key.setText(tmp_key)
+            key = tmp_key
+
         encoded = ""
         msg = ""
         if len(text) <= len(key):
@@ -138,16 +159,31 @@ class Form(QDialog):
         random_text = ''
         if seed_text != '':
             random.seed(seed_text)
-            # TODO: format the random_text in blocks of 5 characters
             for i in range(1000):
                 x = random.randrange(len(self.alphabet.text()))
                 random_text += self.alphabet.text()[x]
+                if i > 1:
+                    if (i+1) % 5 == 0:
+                        random_text += " "
+                    if (i+1) % 25 == 0:
+                        random_text += "\n"
             self.random_text.setPlainText(random_text)
 
     def do_decode(self):
         """Try to decode using the text and the key."""
         text = self.decode_text.text()
         key = self.decode_key.text()
+
+        # ensure the values are all uppercase
+        tmp_text = text.upper()
+        if text != tmp_text:
+            self.decode_text.setText(tmp_text)
+            text = tmp_text
+        tmp_key = key.upper()
+        if key != tmp_key:
+            self.decode_key.setText(tmp_key)
+            key = tmp_key
+
         decoded = ""
         msg = ""
         if len(text) <= len(key):
